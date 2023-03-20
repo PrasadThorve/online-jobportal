@@ -5,7 +5,9 @@ const mongoose = require("mongoose")
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
 require("dotenv").config();
-const cors = require('cors');
+var cors = require('cors');
+const cookieParser = require("cookie-parser");
+const errorHandler = require("./middleware/error");
 
 //database connection
 mongoose.connect(process.env.DATABASE,{
@@ -15,6 +17,27 @@ mongoose.connect(process.env.DATABASE,{
     useFindAndModify:false
 }).then(()=>console.log("DB connected"))
 .catch((err)=>console.log(err));
+
+//Middleware
+app.use(morgan('dev'));
+app.use(bodyParser.json({limit:'5mb'}));
+app.use(bodyParser.urlencoded({
+    limit:'5mb',
+    extended:true
+}));
+app.use(cookieParser());
+app.use(cors()); //request to the backend
+
+//Routes Middleware
+// app.get('/',(req, res)=>{
+//     res.send("Hello from Prasad");
+
+// })
+app.use('/')
+
+
+//error-Middleware
+app.use(errorHandler);
 
 //port
 const port = process.env.PORT || 8080;
