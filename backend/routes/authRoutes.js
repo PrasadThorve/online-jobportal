@@ -1,10 +1,9 @@
  const express = require('express');
  const router = express.Router();
+ const {signIn}  = require('../controllers/authController');
 
 
 //  Routes
-router.get('/',(req, res)=>{
-    res.send("Hello from Thorve Prasad");
-})
+router.get('/',signIn);
 
 module.exports = router;

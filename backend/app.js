@@ -31,7 +31,7 @@ app.use(bodyParser.urlencoded({
 app.use(cookieParser());
 app.use(cors()); //request to the backend
 
-app.use('/',authRoutes);
+app.use('/prasad',authRoutes);
 
 // Routes Middleware
 // app.get('/',(req, res)=>{
